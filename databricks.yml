@@ -1,1 +1,26 @@
 
+bundle:
+  name: semiconplus-manufacturing-lakehouse
+
+include:
+  - resources/*.yml
+
+variables:
+  catalog:
+    description: Unity Catalog target catalog
+    default: semiconplus_portfolio
+  environment:
+    description: Deployment environment
+    default: dev
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+
+  prod:
+    mode: production
+    workspace:
+      root_path: /Workspace/Shared/.bundle/${bundle.name}/${bundle.target}
