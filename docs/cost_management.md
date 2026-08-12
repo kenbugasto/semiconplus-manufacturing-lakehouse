@@ -31,4 +31,4 @@
 | Date | Activity | Starting cost | Ending cost | Increment | Notes |
 |---|---:|---:|---:|---:|---|
 | 2026-08-12 | Environment verification | TBD | TBD | TBD | Existing course-environment baseline |
-| 2026-08-13 | Unity Catalog foundation | TBD | TBD | TBD | Short single-node compute session |
+| 2026-08-13 | Unity Catalog foundation | TBD | TBD | TBD | Short single-node compute session  |
