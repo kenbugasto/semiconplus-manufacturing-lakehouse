@@ -216,3 +216,56 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Databricks configuration
+.databricks/
+.databrickscfg
+databricks_cli_config
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+secrets/
+config/local.yml
+*.pem
+*.key
+*.pfx
+*.token
+
+# Generated datasets
+data/
+generated_data/
+output/
+checkpoints/
+rescued_data/
+quarantine_data/
+
+# Large data files
+*.csv
+*.tsv
+*.jsonl
+*.parquet
+*.delta
+*.pbix
+
+# Allow small documented samples
+!sample_data/*.csv
+!sample_data/*.tsv
+!sample_data/*.json
+!sample_data/*.jsonl
+
+# Databricks exports
+*.dbc
+
+# Logs and test output
+*.log
+logs/
+coverage.xml
+htmlcov/
+
+# IDE and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
