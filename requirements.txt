@@ -1,1 +1,10 @@
 
+# Runtime dependencies
+pyspark
+faker
+pyyaml
+
+# Development and testing
+pytest
+pytest-cov
+ruff
