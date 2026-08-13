@@ -29,6 +29,9 @@
 ## Cost ledger
 
 | Date | Activity | Starting cost | Ending cost | Increment | Notes |
-|---|---:|---:|---:|---:|---|
-| 2026-08-12 | Environment verification | TBD | TBD | TBD | Existing course-environment baseline |
-| 2026-08-13 | Unity Catalog foundation | TBD | TBD | TBD | Short single-node compute session  |
+|---|---|---:|---:|---:|---|
+| 2026-08-12 | Environment verification | Pending | Pending | Pending | Established course-environment baseline |
+| 2026-08-13 | Unity Catalog foundation | Pending | Pending | Pending | Created governed catalog, schemas, and volumes |
+| 2026-08-15 | Dataset generation | Pending | Pending | Pending | Smoke and five-year deterministic datasets |
+| 2026-08-17 | Automated tests | Pending | Pending | Pending | Nine automated tests passed |
+| 2026-08-18 | External landing setup | Pending | Pending | Pending | ADLS container, external location, volume, and validated source copy |

@@ -8,3 +8,7 @@ pyyaml
 pytest
 pytest-cov
 ruff
+
+# Development and testing
+pytest==9.1.1
+pytest-cov==7.1.0
