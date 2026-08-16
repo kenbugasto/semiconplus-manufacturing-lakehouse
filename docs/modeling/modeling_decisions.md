@@ -80,3 +80,12 @@ GitHub and Power BI will distinguish fields and datasets as:
 
 Synthetic test-batch, retest, and OEE data will not be represented as actual
 factory genealogy or observed operational measurements.
+
+## Synthetic retest boundary
+
+Retest attempts are generated deterministically because the source unit-test
+data contains no repeated unit attempts. Synthetic rows are derived only from
+source-backed first-pass failures, use fixed seed 20260818, and are labeled by
+`simulated_record_flag`, `simulation_seed`, `simulation_version`, and
+`record_origin`. These records demonstrate retest modeling and do not represent
+observed manufacturing retest behavior or prove equipment causation.
