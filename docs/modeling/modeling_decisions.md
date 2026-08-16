@@ -89,3 +89,11 @@ source-backed first-pass failures, use fixed seed 20260818, and are labeled by
 `simulated_record_flag`, `simulation_seed`, `simulation_version`, and
 `record_origin`. These records demonstrate retest modeling and do not represent
 observed manufacturing retest behavior or prove equipment causation.
+
+## Synthetic OEE boundary
+
+Standard OEE uses a deterministic simulated hourly operating schedule because
+observed equipment events do not cover a complete operating schedule. The
+hourly OEE source uses fixed seed 20260819 and explicit simulation metadata.
+Observed Silver equipment events are published separately for event analysis.
+Synthetic OEE must not be described as observed manufacturing performance.
