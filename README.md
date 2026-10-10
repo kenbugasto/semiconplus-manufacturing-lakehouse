@@ -93,18 +93,33 @@ SemiconPlus uses an **OLAP-oriented dimensional model** for analytical queries, 
 
 Project targets include **FPY ≥ 95%**, **FTY ≥ 98%**, and **OEE ≥ 80%**. These are project rules, not universal semiconductor standards. Final-test metrics depend on successful retest enrichment and should not be inferred from first-pass-only records.
 
+
 ## 📊 Power BI Reporting
 
-The existing report contains **three pages** backed by an **Import** semantic model. It uses secure Databricks dimension/yield/operational views and relevant Gold equipment tables.
+The project includes a three-page Power BI report backed by an Import semantic model, integrating governed Databricks views and Gold analytical tables.
 
-| Evidence | Add tomorrow |
-| --- | --- |
-| Power BI report — Page 1 | `images/powerbi_page_1.png` |
-| Power BI report — Page 2 | `images/powerbi_page_2.png` |
-| Power BI report — Page 3 | `images/powerbi_page_3.png` |
-| Power BI Model View | `images/powerbi_model.png` |
+### Power BI Semantic Model
 
-**Refresh limitation:** Import-mode reports require a semantic-model refresh after new Databricks data arrives. Automated Power BI Service refresh is **not claimed as implemented** without a tested integration.
+The semantic model uses fact and dimension relationships to support manufacturing yield, retest, and equipment performance analysis.
+
+![Power BI Semantic Model](images/powerbi_model.png)
+
+### Manufacturing Analytics Dashboards
+
+**Dashboard Page 1**
+
+![Power BI Dashboard Page 1](images/powerbi_page_1.png)
+
+**Dashboard Page 2**
+
+![Power BI Dashboard Page 2](images/powerbi_page_2.png)
+
+**Dashboard Page 3**
+
+![Power BI Dashboard Page 3](images/powerbi_page_3.png)
+
+**Refresh limitation:** The Import semantic model requires a separate refresh after Databricks processing. Automated Power BI Service refresh will be implemented and tested separately.
+
 
 ## 🏗️ System Design and Engineering Decisions
 
