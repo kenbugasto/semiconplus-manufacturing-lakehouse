@@ -31,7 +31,9 @@ flowchart LR
     C --> Q[Quarantine / monitoring]
 ```
 
-**📸 Screenshot to add — Databricks:** Pipeline/workflow overview showing the batch or streaming processing stages. Suggested file: `images/databricks_pipeline.png`.
+### Databricks Batch Workflow
+
+![Databricks Batch Workflow](images/databricks_pipeline.png)
 
 ## ▶️ How to Run / Reproduce
 
@@ -57,13 +59,12 @@ SemiconPlus uses an **OLAP-oriented dimensional model** for analytical queries, 
 | Concept | SemiconPlus example | Purpose |
 | --- | --- | --- |
 | **Star schema** | Yield facts linked to conformed date, device, site, product-group, and lot dimensions | Simple, reusable BI filtering and aggregation |
-| **Snowflake schema** | Related dimension hierarchies can be normalized across device and product group | Modeling comparison; **not claimed as a separately implemented snowflake model** |
 | **Fact tables** | `gold.fact_lot_performance`, `gold.fact_yield_periodic`, `gold.fact_oee_hourly` | Measurements at defined reporting grains |
 | **Dimension tables** | `gold.dim_date`, `gold.dim_device`, `gold.dim_site`, `gold.dim_equipment` | Descriptive context for facts |
 | **SCD Type 2** | `gold.dim_device_scd2` | Preserve historical versions of device attributes |
 | **Analytical marts** | `gold.mart_daily_yield`, `gold.mart_device_yield`, `gold.mart_equipment_oee_daily` | Curated summaries for recurring analysis |
 
-**Modeling decision:** Star-schema-oriented serving simplifies Power BI consumption. A normalized snowflake schema can reduce repeated dimension attributes but adds joins; SemiconPlus does not need to claim both physical models. The current `dim_device` and historical `dim_device_scd2` serve distinct needs.
+**Modeling decision:** Star-schema-oriented serving simplifies Power BI consumption through reusable facts and dimensions. The current `dim_device` and historical `dim_device_scd2` serve distinct analytical needs.
 
 ### Databricks Data Lineage
 
@@ -77,8 +78,6 @@ flowchart LR
 
 The complete upstream and downstream dependencies can be inspected using Unity Catalog's Lineage tab in Azure Databricks.
 
-**📸 Screenshot to add — Power BI:** Model View showing relationships between fact and dimension tables. Suggested file: `images/powerbi_model.png`.
-
 ## ⚡ PySpark and Streaming
 
 - **DataFrames / Spark SQL:** Joins, standardization, aggregation, dimensional transformations, and Delta writes.
@@ -89,7 +88,11 @@ The complete upstream and downstream dependencies can be inspected using Unity C
 
 **RDDs** and typed **Datasets** are relevant Spark concepts but are **not claimed as separate implemented APIs** in this PySpark portfolio.
 
-**📸 Screenshot to add — Databricks:** Streaming pipeline graph or successful historical run. Suggested file: `images/databricks_streaming.png`.
+### Databricks Streaming Pipeline
+
+The streaming demonstration uses Auto Loader, Bronze and Silver streaming tables, late-arriving test-result handling, and a Gold materialized view for five-minute yield aggregation.
+
+![Databricks Streaming Pipeline](images/databricks_streaming.png)
 
 ## 📐 Manufacturing KPI Definitions
 
@@ -102,7 +105,6 @@ The complete upstream and downstream dependencies can be inspected using Unity C
 | **OEE** | Availability × Utilization × FTY (project-specific definition) |
 
 Project targets include **FPY ≥ 95%**, **FTY ≥ 98%**, and **OEE ≥ 80%**. These are project rules, not universal semiconductor standards. Final-test metrics depend on successful retest enrichment and should not be inferred from first-pass-only records.
-
 
 ## 📊 Power BI Reporting
 
@@ -128,8 +130,7 @@ The semantic model uses fact and dimension relationships to support manufacturin
 
 ![Power BI Dashboard Page 3](images/powerbi_page_3.png)
 
-**Refresh limitation:** The Import semantic model requires a separate refresh after Databricks processing. Automated Power BI Service refresh will be implemented and tested separately.
-
+**Refresh limitation:** The Import semantic model requires a separate refresh after Databricks processing. Automated Power BI Service refresh is not currently implemented and may be added as a future enhancement.
 
 ## 🏗️ System Design and Engineering Decisions
 
@@ -146,7 +147,9 @@ The semantic model uses fact and dimension relationships to support manufacturin
 
 **System design discussion:** The primary design challenge is keeping batch and streaming sources reliable while maintaining consistent manufacturing keys, correct KPI grains, and governed reporting. A production-scale deployment would additionally require measured throughput/cost targets, recovery testing, permissions verification, and service-level objectives.
 
-**📸 Screenshot to add — Databricks:** Unity Catalog catalog/schema layout or governance view. Suggested file: `images/databricks_catalog.png`.
+### Unity Catalog Organization
+
+![Unity Catalog Schemas](images/databricks_catalog.png)
 
 ## 🧪 Engineering Scope and Limitations
 
