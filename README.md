@@ -2,7 +2,7 @@
 
 End-to-end manufacturing data engineering portfolio built with **Azure Databricks, PySpark, Spark SQL, Delta Lake, Unity Catalog, and Power BI**. Demonstrates batch and streaming ingestion, dimensional modeling, data quality, and governed analytics.
 
-> **Public portfolio:** Manufacturing identifiers are anonymized, and simulation-based retest/equipment datasets are identified separately from source-backed demonstration data. No proprietary manufacturing or customer-sensitive information should be published.
+> **Public portfolio:** All manufacturing datasets used in this project are fully synthetic. No real production, customer, or proprietary manufacturing data is included.
 
 ## 🔎 Problem and Engineering Value
 
@@ -42,11 +42,11 @@ flowchart LR
 This is a **cloud lakehouse project**, not a standalone Python script. The execution order below describes the architecture; exact notebook paths, job names, permissions, and deployment commands must be confirmed against the published repository before this becomes a one-command reproducible setup.
 
 1. **Prepare the workspace.** Import or clone the repository into Databricks. Configure a development environment and verify permissions for the `semiconplus_portfolio` catalog, schemas, and Unity Catalog landing volumes. Do not commit workspace tokens, credentials, or sensitive configuration.
-2. **Stage demonstration inputs.** Upload the anonymized/source-backed sample files to their expected landing volume paths. Stage simulated retest/equipment inputs separately. For the streaming demonstration, use the configured JSON input volume.
+2. **Stage synthetic inputs.** Upload the synthetic batch manufacturing and reference datasets to their expected landing volume paths. Stage synthetic retest/equipment inputs separately. For the streaming demonstration, use the configured synthetic JSON input volume.
 3. **Run batch ingestion and transformations.** Execute the repository's configured notebooks/jobs in dependency order: reference and source ingestion → Bronze → Silver → Gold dimensions → Gold facts/marts → secure views. Confirm notebook/job paths from the repository rather than assuming filenames.
-4. **Run the streaming demonstration (optional).** Start the configured Databricks streaming pipeline and provide sample JSON events. Verify Bronze/Silver streaming tables, late-data handling, and `gold.mart_streaming_yield_5m`. Stop compute after validation to control costs.
+4. **Run the streaming demonstration.** Start the configured Databricks streaming pipeline and provide sample JSON events. Verify Bronze/Silver streaming tables, late-data handling, and `gold.mart_streaming_yield_5m`. Stop compute after validation to control costs.
 5. **Validate outputs.** Review `monitoring.data_quality_results`, `monitoring.ingestion_audit`, relevant `quarantine` tables, and operational workflow logs. Check that Gold and secure-view results are populated and KPI denominators are valid.
-6. **Open the Power BI report (optional).** In Power BI Desktop, configure the Databricks connection and credentials for your own workspace, refresh the Import model, and inspect the three report pages. A Databricks pipeline run alone does **not** refresh an imported Power BI semantic model.
+6. **Open the Power BI report.** In Power BI Desktop, configure the Databricks connection and credentials for your own workspace, refresh the Import model, and inspect the three report pages. A Databricks pipeline run alone does **not** refresh an imported Power BI semantic model.
 
 **Reproducibility note:** This README does not claim that the public repository already includes every sample input, deployment configuration, or executable job dependency. Add exact commands and verified paths after the repository and workflow definitions are checked. Never publish production data or credentials.
 
@@ -130,7 +130,7 @@ The semantic model uses fact and dimension relationships to support manufacturin
 
 ![Power BI Dashboard Page 3](images/powerbi_page_3.png)
 
-**Refresh limitation:** The Import semantic model requires a separate refresh after Databricks processing. Automated Power BI Service refresh is not currently implemented and may be added as a future enhancement.
+**Refresh limitation:** The Import semantic model requires a separate refresh after Databricks processing. Automated Power BI Service refresh is a potential future enhancement.
 
 ## 🏗️ System Design and Engineering Decisions
 
@@ -153,9 +153,9 @@ The semantic model uses fact and dimension relationships to support manufacturin
 
 ## 🧪 Engineering Scope and Limitations
 
-The portfolio demonstrates **ingestion, transformations, data-quality/error handling, dimensional modeling, orchestration, and reporting**. Databricks monitoring, workflow, and quarantine tables exist in the project. Specific performance improvements, fully automated Power BI refresh, and end-to-end CI/CD deployment should only be advertised after verification.
+The portfolio demonstrates **ingestion, transformations, data-quality/error handling, dimensional modeling, orchestration, and reporting** using fully synthetic manufacturing data. Databricks monitoring, workflow, and quarantine tables exist in the project. Specific performance improvements are not claimed without measurement.
 
-The project contains **source-backed demonstration data**, **synthetic/simulated manufacturing events**, and a **streaming demo**. These are not interchangeable with measured production outcomes.
+**Ongoing development:** CI/CD integration is currently in progress and targeted for completion on October 15 2026; it will be documented as implemented only after successful validation. Automated Power BI Service refresh is reserved for a future enhancement.
 
 ## 🧰 Technology Stack
 
