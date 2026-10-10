@@ -65,7 +65,17 @@ SemiconPlus uses an **OLAP-oriented dimensional model** for analytical queries, 
 
 **Modeling decision:** Star-schema-oriented serving simplifies Power BI consumption. A normalized snowflake schema can reduce repeated dimension attributes but adds joins; SemiconPlus does not need to claim both physical models. The current `dim_device` and historical `dim_device_scd2` serve distinct needs.
 
-**📸 Screenshot to add — Databricks:** Unity Catalog lineage for `gold.fact_yield_periodic` or `gold.fact_lot_performance`. Suggested file: `images/databricks_lineage.png`.
+### Databricks Data Lineage
+
+The following diagram illustrates the main production-lot processing path from Bronze ingestion through Silver standardization and Gold analytical modeling.
+
+```mermaid
+flowchart LR
+    A["bronze.production_lots"] --> B["silver.production_lots"]
+    B --> C["gold.fact_lot_performance"]
+```
+
+The complete upstream and downstream dependencies can be inspected using Unity Catalog's Lineage tab in Azure Databricks.
 
 **📸 Screenshot to add — Power BI:** Model View showing relationships between fact and dimension tables. Suggested file: `images/powerbi_model.png`.
 
