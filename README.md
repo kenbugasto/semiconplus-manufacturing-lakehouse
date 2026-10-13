@@ -151,11 +151,102 @@ The semantic model uses fact and dimension relationships to support manufacturin
 
 ![Unity Catalog Schemas](images/databricks_catalog.png)
 
+## CI/CD & Automated Testing
+
+SemiconPlus uses **GitHub Actions for Continuous Integration (CI)** and **manual Git-based deployment to Azure Databricks**. This approach provides automated code validation while keeping cloud execution and deployment under manual control.
+
+### CI/CD Workflow
+
+```mermaid
+flowchart TD
+    A["Code changes committed to GitHub"] --> B["GitHub Actions CI"]
+    B --> C["Python syntax checks and pytest"]
+    C --> D{"All checks pass?"}
+    D -->|No| E["Fix code and push changes"]
+    E --> B
+    D -->|Yes| F["Manually pull approved changes into Databricks"]
+    F --> G["Verify branch and commit"]
+    G --> H["Run relevant Databricks validation job"]
+    H --> I{"Validation successful?"}
+    I -->|No| J["Investigate or roll back"]
+    I -->|Yes| K["Record deployed commit"]
+```
+
+### Automated CI Checks
+
+The CI workflow is defined in `.github/workflows/ci.yml` and runs on pushes and pull requests targeting `main`. It can also be triggered manually using GitHub Actions.
+
+The workflow:
+
+1. Checks out the repository.
+2. Configures Python 3.11 and Java 17.
+3. Installs project dependencies from `requirements.txt`.
+4. Checks Python syntax using `compileall`.
+5. Executes automated unit tests using `pytest`.
+
+**Latest verified result: 9 passed, 0 failed.**
+
+### Unit Test Coverage
+
+The nine custom unit tests are defined in `tests/unit/test_data_generator.py`. These tests are written as part of the SemiconPlus project, rather than generated automatically by GitHub.
+
+| Test | Purpose |
+|---|---|
+| `test_reference_entity_counts` | Verifies expected reference-data record counts. |
+| `test_reference_foreign_keys` | Checks relationships between generated reference entities. |
+| `test_generator_creates_required_directories` | Verifies creation of required output directories. |
+| `test_generated_date_coverage` | Checks the expected date coverage of generated data. |
+| `test_expected_quality_failures_are_generated` | Verifies that intentional data-quality failure scenarios are generated. |
+| `test_manifest_counts_match_generated_files` | Checks consistency between generated files and manifest counts. |
+| `test_generated_json_is_readable` | Verifies that generated JSON files can be parsed. |
+| `test_validator_passes_generated_dataset` | Checks that the generated dataset passes the project validator. |
+| `test_fixed_seed_produces_same_business_data` | Verifies deterministic generation using a fixed random seed. |
+
+The tests are executed with:
+
+```bash
+python -m pytest tests/unit -v
+```
+
+**How the testing components work together:**
+
+- **Custom Python unit tests** define the expected behavior.
+- **pytest** discovers, executes, and evaluates those tests.
+- **GitHub Actions** automatically runs pytest according to the CI workflow configuration.
+
+GitHub Actions automates test execution; it does not automatically create the unit tests.
+
+### Manual Deployment to Databricks
+
+After a successful CI run, approved changes are manually synchronized to the Databricks Git folder.
+
+The deployment procedure is:
+
+1. Confirm that GitHub Actions CI has passed for the intended commit.
+2. Open the SemiconPlus Git folder in Azure Databricks.
+3. Pull the approved changes from GitHub.
+4. Verify the active branch and synchronized commit.
+5. Review the affected Databricks Job or streaming pipeline.
+6. Execute relevant validation when appropriate.
+7. Inspect job results and record the deployed commit.
+
+SemiconPlus uses Databricks Jobs for batch processing and operational validation, and a triggered streaming pipeline for streaming workloads.
+
+### Scope and Limitations
+
+The current CI workflow validates Python syntax and runs nine unit tests focused on synthetic data generation. It does not automatically execute Databricks batch jobs, streaming pipelines, or the project's integration and data-quality test suites.
+
+Deployment is manual, not an automated production release. Live pipeline validation is performed separately in Databricks.
+
+This design keeps the portfolio environment lightweight and limits unnecessary cloud compute usage.
+
+For detailed operational procedures, validation steps, and rollback guidance, see [`docs/PIPELINE_OPERATIONS.md`](docs/PIPELINE_OPERATIONS.md).
+
 ## 🧪 Engineering Scope and Limitations
 
 The portfolio demonstrates **ingestion, transformations, data-quality/error handling, dimensional modeling, orchestration, and reporting** using fully synthetic manufacturing data. Databricks monitoring, workflow, and quarantine tables exist in the project. Specific performance improvements are not claimed without measurement.
 
-**Ongoing development:** CI/CD integration is currently in progress and targeted for completion on October 15 2026; it will be documented as implemented only after successful validation. Automated Power BI Service refresh is reserved for a future enhancement.
+**Ongoing development: Automated Power BI Service refresh is reserved for a future enhancement.
 
 ## 🧰 Technology Stack
 
