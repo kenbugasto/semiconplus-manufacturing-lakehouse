@@ -246,11 +246,11 @@ For detailed operational procedures, validation steps, and rollback guidance, se
 
 The portfolio demonstrates **ingestion, transformations, data-quality/error handling, dimensional modeling, orchestration, and reporting** using fully synthetic manufacturing data. Databricks monitoring, workflow, and quarantine tables exist in the project. Specific performance improvements are not claimed without measurement.
 
-**Ongoing development: Automated Power BI Service refresh is reserved for a future enhancement.
+**Ongoing development:** Automated Power BI Service refresh is reserved for a future enhancement.
 
 ## 🧰 Technology Stack
 
-**Azure · Databricks · Python · PySpark · Spark SQL · Apache Spark · Delta Lake · Auto Loader · Unity Catalog · Power BI · Git/GitHub**
+**Azure · Databricks · Python · PySpark · Spark SQL · Apache Spark · Delta Lake · Auto Loader · Unity Catalog · Power BI · Git/GitHub · GitHub Actions · pytest**
 
 ## 👤 Author
 
